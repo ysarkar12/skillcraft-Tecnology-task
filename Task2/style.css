@@ -1,0 +1,60 @@
+  /* Base styling */
+body {
+  background: #f4f4f4;
+  font-family: 'Segoe UI', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0; /* Added: reset default margin */
+}
+
+/* Stopwatch container */
+.stopwatch-container {
+  background: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  width: 300px; /* Optional: consistent layout size */
+}
+
+/* Time display */
+.time {
+  font-size: 48px;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+/* Buttons layout */
+.buttons button {
+  font-size: 18px;
+  margin: 5px;
+  padding: 10px 20px;
+  border: none;
+  background: #0066cc;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease; /* Added: smoother hover */
+}
+
+.buttons button:hover {
+  background: #004d99;
+}
+
+/* Lap list */
+#laps {
+  list-style: none;
+  margin-top: 20px;
+  padding: 0;
+  max-height: 150px;
+  overflow-y: auto;
+  text-align: left;
+}
+
+#laps li {
+  padding: 5px 10px;
+  border-bottom: 1px solid #ddd;
+  font-size: 16px;
+}
