@@ -1,0 +1,118 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>To-Do Web App</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+    }
+    input, button {
+      padding: 10px;
+      margin: 5px 0;
+      width: 100%;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    li {
+      padding: 10px;
+      background: #f9f9f9;
+      margin-bottom: 5px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .completed {
+      text-decoration: line-through;
+      color: grey;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>To-Do Web App</h2>
+    <input type="text" id="taskInput" placeholder="Enter new task">
+    <input type="datetime-local" id="taskTime">
+    <button onclick="addTask()">Add Task</button>
+    <ul id="taskList"></ul>
+  </div>  <script>
+    let tasks = [];
+
+    function addTask() {
+      const taskInput = document.getElementById('taskInput');
+      const taskTime = document.getElementById('taskTime');
+
+      if (!taskInput.value || !taskTime.value) return;
+
+      const task = {
+        id: Date.now(),
+        text: taskInput.value,
+        time: taskTime.value,
+        completed: false
+      };
+
+      tasks.push(task);
+      renderTasks();
+
+      taskInput.value = '';
+      taskTime.value = '';
+    }
+
+    function toggleTask(id) {
+      tasks = tasks.map(task =>
+        task.id === id ? { ...task, completed: !task.completed } : task
+      );
+      renderTasks();
+    }
+
+    function deleteTask(id) {
+      tasks = tasks.filter(task => task.id !== id);
+      renderTasks();
+    }
+
+    function editTask(id) {
+      const newText = prompt('Edit your task:');
+      if (newText) {
+        tasks = tasks.map(task =>
+          task.id === id ? { ...task, text: newText } : task
+        );
+        renderTasks();
+      }
+    }
+
+    function renderTasks() {
+      const taskList = document.getElementById('taskList');
+      taskList.innerHTML = '';
+
+      tasks.forEach(task => {
+        const li = document.createElement('li');
+        li.className = task.completed ? 'completed' : '';
+        li.innerHTML = `
+          <span>${task.text} <small>(${new Date(task.time).toLocaleString()})</small></span>
+          <div>
+            <button onclick="toggleTask(${task.id})">✔</button>
+            <button onclick="editTask(${task.id})">✏</button>
+            <button onclick="deleteTask(${task.id})">🗑</button>
+          </div>
+        `;
+        taskList.appendChild(li);
+      });
+    }
+  </script></body>
+</html>
